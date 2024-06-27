@@ -36,5 +36,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}  # Optional, default is 22
           script: |
-            docker-compose -f docker-compose.yml pull
-            docker-compose -f docker-compose.yml up -d --remove-orphans
+            cd /home/adcadmin/Music  # Navigate to the directory containing docker-compose.yml
+            git pull origin main  # Pull the latest changes from Git
+            docker-compose pull  # Pull updated images
+            docker-compose up -d --remove-orphans  # Recreate containers
