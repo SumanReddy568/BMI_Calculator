@@ -1,0 +1,24 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"  # Map backend service port to host
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"  # Map frontend service port to host
+    depends_on:
+      - backend
+  
+  nginx:
+    image: nginx:latest
+    ports:
+      - "85:80"  # Map nginx service port 80 to host port 85
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Mount nginx configuration file
+    depends_on:
+      - frontend
